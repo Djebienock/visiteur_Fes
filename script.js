@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- DATABASE (Client-Side) --- //
     const db = {
         sliderImages: [
-            'images/slider-1.jpg',
+            'https://i.pinimg.com/1200x/49/13/05/4913059a115dab4f42aae043dbf22f05.jpg',
             'images/slider-2.jpg',
             'images/slider-3.jpg',
         ],
