@@ -1,146 +1,1211 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Fès CAN 2025 Guide</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<script type="importmap">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fès - Capitale Spirituelle et Culturelle du Maroc</title>
+    <style>
+        /* Variables CSS pour une cohérence du design */
+        :root {
+            --primary-color: #8B4513; /* Marron terreux pour rappeler Fès */
+            --secondary-color: #DAA520; /* Or pour l'élégance */
+            --accent-color: #228B22; /* Vert pour la nature et l'islam */
+            --light-color: #F5F5DC; /* Beige clair */
+            --dark-color: #2F4F4F; /* Gris ardoise foncé */
+            --text-color: #333;
+            --white: #FFFFFF;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
 
-</script>
-<link rel="stylesheet" href="/index.css">
+        /* Reset et styles de base */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--light-color);
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: var(--primary-color);
+            color: var(--white);
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 600;
+        }
+
+        .btn:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+            position: relative;
+            color: var(--primary-color);
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background-color: var(--secondary-color);
+        }
+
+        /* Header et Navigation */
+        header {
+            background-color: var(--white);
+            box-shadow: var(--shadow);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .logo span {
+            color: var(--secondary-color);
+        }
+
+        .nav-menu {
+            display: flex;
+        }
+
+        .nav-item {
+            margin-left: 25px;
+            position: relative;
+        }
+
+        .nav-link {
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .nav-link:hover {
+            color: var(--primary-color);
+        }
+
+        .language-selector {
+            margin-left: 20px;
+            position: relative;
+        }
+
+        .language-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+        }
+
+        .language-dropdown {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background-color: var(--white);
+            box-shadow: var(--shadow);
+            border-radius: 4px;
+            padding: 10px 0;
+            min-width: 120px;
+            display: none;
+        }
+
+        .language-selector:hover .language-dropdown {
+            display: block;
+        }
+
+        .language-option {
+            padding: 8px 15px;
+            display: block;
+            transition: var(--transition);
+        }
+
+        .language-option:hover {
+            background-color: #f5f5f5;
+        }
+
+        .mobile-toggle {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Hero Section avec Slider */
+        .hero {
+            height: 100vh;
+            margin-top: 70px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-slider {
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+
+        .slides {
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .slide.active {
+            opacity: 1;
+        }
+
+        .slide::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.6));
+        }
+
+        .slide-1 {
+            background-image: url('https://i.pinimg.com/736x/a7/2e/a4/a72ea46f0f4441ed88315c7422a3629c.jpg');
+        }
+
+        .slide-2 {
+            background-image: url('https://i.pinimg.com/1200x/a8/7a/46/a87a4605d01c84c9ecca902ae714d7a5.jpg');
+        }
+
+        .slide-3 {
+            background-image: url('https://i.pinimg.com/736x/9c/66/8c/9c668c71ae2c2ef2e3dffd6e13edb8e2.jpg');
+        }
+
+        .slide-4 {
+            background-image: url('https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+        }
+
+        .hero-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: var(--white);
+            z-index: 2;
+            width: 90%;
+            max-width: 800px;
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            animation: fadeInUp 1s ease-out 0.3s both;
+        }
+
+        .hero-btn {
+            background-color: var(--secondary-color);
+            padding: 12px 30px;
+            font-size: 1.1rem;
+            animation: fadeInUp 1s ease-out 0.6s both;
+        }
+
+        .slider-controls {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            z-index: 3;
+        }
+
+        .slider-dots {
+            display: flex;
+            gap: 10px;
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .dot.active {
+            background-color: var(--white);
+            transform: scale(1.2);
+        }
+
+        .slider-arrow {
+            background: none;
+            border: none;
+            color: var(--white);
+            font-size: 2rem;
+            cursor: pointer;
+            transition: var(--transition);
+            padding: 5px;
+        }
+
+        .slider-arrow:hover {
+            color: var(--secondary-color);
+            transform: scale(1.1);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Section À Découvrir */
+        .discover {
+            padding: 80px 0;
+            background-color: var(--white);
+        }
+
+        .attractions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .attraction-card {
+            background-color: var(--white);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .attraction-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .attraction-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .attraction-content {
+            padding: 20px;
+        }
+
+        .attraction-title {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            color: var(--primary-color);
+        }
+
+        .attraction-desc {
+            color: #666;
+            margin-bottom: 15px;
+        }
+
+        /* Section Gastronomie */
+        .gastronomy {
+            padding: 80px 0;
+            background-color: var(--light-color);
+        }
+
+        .restaurants-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .restaurant-card {
+            background-color: var(--white);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+
+        .restaurant-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .restaurant-content {
+            padding: 20px;
+        }
+
+        .restaurant-title {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            color: var(--primary-color);
+        }
+
+        .restaurant-info {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            color: #666;
+        }
+
+        .restaurant-desc {
+            color: #666;
+            margin-bottom: 15px;
+        }
+
+        /* Section Carte Interactive */
+        .map-section {
+            padding: 80px 0;
+            background-color: var(--white);
+        }
+
+        .map-container {
+            height: 500px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+
+        #interactive-map {
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Section Informations Pratiques */
+        .practical-info {
+            padding: 80px 0;
+            background-color: var(--light-color);
+        }
+
+        .info-tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .tab-btn {
+            padding: 10px 20px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-weight: 500;
+            position: relative;
+            transition: var(--transition);
+        }
+
+        .tab-btn.active {
+            color: var(--primary-color);
+        }
+
+        .tab-btn.active::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background-color: var(--primary-color);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .info-card {
+            background-color: var(--white);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+        }
+
+        .info-title {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+        }
+
+        .info-title i {
+            margin-right: 10px;
+            color: var(--secondary-color);
+        }
+
+        .info-list {
+            list-style-type: disc;
+            padding-left: 20px;
+        }
+
+        .info-list li {
+            margin-bottom: 8px;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--dark-color);
+            color: var(--white);
+            padding: 60px 0 20px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-column h3 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background-color: var(--secondary-color);
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: var(--secondary-color);
+            padding-left: 5px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            transition: var(--transition);
+        }
+
+        .social-link:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-3px);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .hero-title {
+                font-size: 2.8rem;
+            }
+            
+            .nav-menu {
+                position: fixed;
+                top: 70px;
+                left: -100%;
+                width: 80%;
+                height: calc(100vh - 70px);
+                background-color: var(--white);
+                flex-direction: column;
+                padding: 40px 20px;
+                transition: var(--transition);
+                box-shadow: var(--shadow);
+            }
+            
+            .nav-menu.active {
+                left: 0;
+            }
+            
+            .nav-item {
+                margin: 0 0 20px 0;
+            }
+            
+            .mobile-toggle {
+                display: block;
+            }
+            
+            .language-selector {
+                margin-left: 0;
+                margin-top: 20px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.2rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+
+            .slider-controls {
+                bottom: 20px;
+            }
+
+            .slider-arrow {
+                font-size: 1.5rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero-title {
+                font-size: 1.8rem;
+            }
+            
+            .hero-btn {
+                padding: 10px 20px;
+                font-size: 1rem;
+            }
+            
+            .attractions-grid,
+            .restaurants-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .slider-controls {
+                flex-direction: column;
+                gap: 15px;
+            }
+        }
+    </style>
 </head>
 <body>
-
+    <!-- Header avec navigation -->
     <header>
-        <div class="container">
-            <div class="logo">
-                <i class="fas fa-mosque"></i> Fès Tourisme
-            </div>
+        <div class="container header-container">
+            <a href="#" class="logo">MM<span>DAC</span></a>
+            
+            <div class="mobile-toggle">☰</div>
+            
             <nav>
-                <a href="#home" class="nav-link active">Accueil</a>
-                <a href="#accommodations" class="nav-link">Hébergements</a>
-                <a href="#transport" class="nav-link">Transports</a>
+                <ul class="nav-menu">
+                    <li class="nav-item"><a href="#discover" class="nav-link">À Découvrir</a></li>
+                    <li class="nav-item"><a href="#gastronomy" class="nav-link">Gastronomie</a></li>
+                    <li class="nav-item"><a href="#map" class="nav-link">Carte Interactive</a></li>
+                    <li class="nav-item"><a href="#practical-info" class="nav-link">Infos Pratiques</a></li>
+                    <li class="nav-item language-selector">
+                        <button class="language-btn">Français ▼</button>
+                        <div class="language-dropdown">
+                            <a href="#" class="language-option" data-lang="fr">Français</a>
+                            <a href="#" class="language-option" data-lang="en">English</a>
+                            <a href="#" class="language-option" data-lang="ar">العربية</a>
+                        </div>
+                    </li>
+                </ul>
             </nav>
-            <button class="mobile-menu-button" aria-label="Open menu">
-                <i class="fas fa-bars"></i>
-            </button>
         </div>
     </header>
 
-    <main>
-        <section id="home" class="page active">
-            <!-- Hero Slider -->
-            <div class="hero-slider">
-                <div class="slider-inner">
-                    <!-- Slides will be injected by JS -->
-                </div>
-                <div class="hero-content">
-                    <h1>Découvrez Fès</h1>
-                    <p>Capitale Spirituelle et Culturelle du Maroc</p>
-                    <button class="cta-button">Explorer Maintenant</button>
-                </div>
+    <!-- Section Hero avec Slider -->
+    <section class="hero">
+        <div class="hero-slider">
+            <div class="slides">
+                <div class="slide slide-1 active"></div>
+                <div class="slide slide-2"></div>
+                <div class="slide slide-3"></div>
+                <div class="slide slide-4"></div>
             </div>
-            <!-- CAN Presentation -->
-            <div class="content-section bg-white">
-                <div class="container grid-2">
-                    <div>
-                        <h2>CAN 2025 au Maroc</h2>
-                        <p>Le Maroc est fier d'accueillir la Coupe d'Afrique des Nations 2025. Fès, avec sa riche histoire et sa culture vibrante, est l'une des villes hôtes clés, prête à offrir une expérience inoubliable aux fans de football du monde entier.</p>
-                        <p>Préparez-vous à vivre des moments de passion sportive dans des stades modernes et à découvrir l'hospitalité marocaine légendaire.</p>
-                    </div>
-                    <div>
-                        <img src="images/can-2025.jpg" alt="CAN 2025" class="rounded-image">
-                    </div>
-                </div>
+            
+            <div class="hero-content">
+                <h1 class="hero-title">Bienvenue à Fès</h1>
+                <p class="hero-subtitle">Capitale spirituelle et culturelle du Maroc</p>
+                <a href="#discover" class="btn hero-btn">Découvrir Fès</a>
             </div>
-            <!-- Attractions -->
-            <div class="content-section">
-                 <div class="container">
-                    <h2 class="text-center">Attractions Touristiques de Fès</h2>
-                    <div id="attractions-grid" class="grid-3">
-                        <!-- Attraction cards will be injected by JS -->
-                    </div>
+            
+            <div class="slider-controls">
+                <button class="slider-arrow prev">❮</button>
+                <div class="slider-dots">
+                    <div class="dot active" data-slide="0"></div>
+                    <div class="dot" data-slide="1"></div>
+                    <div class="dot" data-slide="2"></div>
+                    <div class="dot" data-slide="3"></div>
                 </div>
+                <button class="slider-arrow next">❯</button>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <section id="accommodations" class="page hidden">
-            <div class="container content-section">
-                <h1 class="text-center">Trouver votre Hébergement</h1>
-                <p class="text-center subtitle">Comparez et réservez le séjour parfait à Fès.</p>
-                <!-- Filters -->
-                <div class="filters-card grid-3">
-                    <div>
-                        <label for="type-filter">Type d'hébergement</label>
-                        <select id="type-filter">
-                            <option value="all">Tous</option>
-                            <option value="Hôtel">Hôtel</option>
-                            <option value="Riad">Riad</option>
-                            <option value="Auberge">Auberge</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label for="sort-order">Trier par</label>
-                        <select id="sort-order">
-                            <option value="price_asc">Prix (croissant)</option>
-                            <option value="price_desc">Prix (décroissant)</option>
-                            <option value="rating">Note (meilleure)</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label for="price-range">Prix max: <span id="price-value">3000</span> DH</label>
-                        <input id="price-range" type="range" min="300" max="3000" step="100" value="3000">
+    <!-- Section À Découvrir -->
+    <section id="discover" class="discover">
+        <div class="container">
+            <h2 class="section-title">Sites Touristiques Incontournables</h2>
+            <div class="attractions-grid">
+                <!-- Médina de Fès -->
+                <div class="attraction-card">
+                    <img src="https://i.pinimg.com/1200x/15/49/e9/1549e95e34d981ba0e0775d1810dd009.jpg" alt="Médina de Fès" class="attraction-img">
+                    <div class="attraction-content">
+                        <h3 class="attraction-title">Médina de Fès el-Bali</h3>
+                        <p class="attraction-desc">Classée au patrimoine mondial de l'UNESCO, la médina de Fès est l'une des plus grandes et anciennes médinas du monde avec ses ruelles labyrinthiques.</p>
+                        <a href="https://www.tripadvisor.com/Attraction_Review-g293733-d538262-Reviews-Fes_el_Bali-Fez_Fez_Meknes.html" class="btn">En savoir plus</a>
                     </div>
                 </div>
-                <!-- Accommodations Grid -->
-                <div id="accommodations-grid" class="grid-4">
-                    <!-- Accommodation cards will be injected by JS -->
+                
+                <!-- Tanneries Chouara -->
+                <div class="attraction-card">
+                    <img src="https://i.pinimg.com/1200x/c1/4c/24/c14c24db9cba46da8ff042d06c32e312.jpg" alt="Tanneries Chouara" class="attraction-img">
+                    <div class="attraction-content">
+                        <h3 class="attraction-title">Tanneries Chouara</h3>
+                        <p class="attraction-desc">Les célèbres tanneries traditionnelles où le cuir est encore travaillé selon des méthodes ancestrales datant du Moyen Âge.</p>
+                        <a href="https://thirdeyetraveller.com/chouara-tannery-fez-morocco/" class="btn">En savoir plus</a>
+                    </div>
+                </div>
+                
+                <!-- Université Al Quaraouiyine -->
+                <div class="attraction-card">
+                    <img src="https://i.pinimg.com/736x/bf/fe/8d/bffe8d8e2239f3b2ee20719827e2c31d.jpg" alt="Université Al Quaraouiyine" class="attraction-img">
+                    <div class="attraction-content">
+                        <h3 class="attraction-title">Université Al Quaraouiyine</h3>
+                        <p class="attraction-desc">Fondée en 859, c'est la plus ancienne université du monde encore en activité selon l'UNESCO et le Livre Guinness des records.</p>
+                        <a href="https://www.unirank.org/ma/uni/university-of-al-quaraouiyine/" class="btn">En savoir plus</a>
+                    </div>
+                </div>
+                
+                <!-- Palais Royal -->
+                <div class="attraction-card">
+                    <img src="https://i.pinimg.com/736x/dd/b8/fc/ddb8fc41e1155c9b778febde58a77156.jpg" alt="Palais Royal" class="attraction-img">
+                    <div class="attraction-content">
+                        <h3 class="attraction-title">Palais Royal</h3>
+                        <p class="attraction-desc">Le Palais Royal de Fès, avec ses magnifiques portes en laiton et son architecture impressionnante, est un site emblématique.</p>
+                        <a href="https://www.tripadvisor.com/Attraction_Review-g293736-d481103-Reviews-Royal_Palace_of_Rabat-Rabat_Rabat_Sale_Kenitra.html" class="btn">En savoir plus</a>
+                    </div>
+                </div>
+                
+                <!-- Jardin Jnan Sbil -->
+                <div class="attraction-card">
+                    <img src="https://i.pinimg.com/1200x/d2/9c/89/d29c895adc05d82ad219ed15282ee7d2.jpg" alt="Jardin Jnan Sbil" class="attraction-img">
+                    <div class="attraction-content">
+                        <h3 class="attraction-title">Jardin Jnan Sbil</h3>
+                        <p class="attraction-desc">Un havre de paix au cœur de la ville, ce jardin historique offre une escapade verdoyante avec ses fontaines et ses nombreuses espèces végétales.</p>
+                        <a href="https://www.morokko.net/regions/fes/fes/jardin-jnan-sbil" class="btn">En savoir plus</a>
+                    </div>
+                </div>
+                
+                <!-- Musée Dar Batha -->
+                <div class="attraction-card">
+                    <img src="https://i.pinimg.com/736x/49/52/f8/4952f804e3f67d48f72a568f7501c2f5.jpg" alt="Musée Dar Batha" class="attraction-img">
+                    <div class="attraction-content">
+                        <h3 class="attraction-title">Musée Dar Batha</h3>
+                        <p class="attraction-desc">Installé dans un ancien palais, ce musée abrite une riche collection d'artisanat traditionnel fassi et d'objets historiques.</p>
+                        <a href="https://malika-in-morocco.com/1238/dar-batha-museum-islamic-arts/" class="btn">En savoir plus</a>
+                    </div>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <section id="transport" class="page hidden">
-            <div class="container content-section">
-                <h1 class="text-center">Se Déplacer à Fès</h1>
-                <p class="text-center subtitle">Explorez les options de transport pour un séjour fluide.</p>
-                <div class="grid-2">
-                    <div id="transport-options" class="transport-options-list">
-                        <!-- Transport options will be injected by JS -->
-                    </div>
-                    <div class="map-container">
-                        <h3>Plan de la Ville</h3>
-                        <div class="map-placeholder">
-                           <img src="images/map-placeholder.jpg" alt="Map of Fes">
-                           <div class="map-overlay">
-                               <h4>Intégration de la carte à venir</h4>
-                               <p>Consultez les itinéraires en temps réel</p>
-                           </div>
+    <!-- Section Gastronomie -->
+    <section id="gastronomy" class="gastronomy">
+        <div class="container">
+            <h2 class="section-title">Gastronomie Fassie</h2>
+            <div class="restaurants-grid">
+                <!-- Restaurant 1 -->
+                <div class="restaurant-card">
+                    <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Restaurant Dar Roumana" class="restaurant-img">
+                    <div class="restaurant-content">
+                        <h3 class="restaurant-title">Dar Roumana</h3>
+                        <div class="restaurant-info">
+                            <span>Médina</span>
+                            <span>⭐⭐⭐⭐</span>
                         </div>
-                        <button class="button-full">Ouvrir la carte interactive</button>
+                        <p class="restaurant-desc">Une expérience culinaire raffinée dans un riad restauré, proposant une cuisine marocaine moderne.</p>
+                        <a href="https://www.darroumana.com/" class="btn">Voir le menu</a>
+                    </div>
+                </div>
+                
+                <!-- Restaurant 2 -->
+                <div class="restaurant-card">
+                    <img src="https://images.unsplash.com/photo-1559339352-11d035aa65de?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Café Clock" class="restaurant-img">
+                    <div class="restaurant-content">
+                        <h3 class="restaurant-title">Café Clock</h3>
+                        <div class="restaurant-info">
+                            <span>Médina</span>
+                            <span>⭐⭐⭐</span>
+                        </div>
+                        <p class="restaurant-desc">Un lieu branché mêlant culture et gastronomie, célèbre pour son burger de chameau.</p>
+                        <a href="https://www.cafeclock.com/" class="btn">Voir le menu</a>
+                    </div>
+                </div>
+                
+                <!-- Restaurant 3 -->
+                <div class="restaurant-card">
+                    <img src="https://images.unsplash.com/photo-1554679665-f5537f187268?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Restaurant Numéro 7" class="restaurant-img">
+                    <div class="restaurant-content">
+                        <h3 class="restaurant-title">Numéro 7</h3>
+                        <div class="restaurant-info">
+                            <span>Ville Nouvelle</span>
+                            <span>⭐⭐⭐⭐</span>
+                        </div>
+                        <p class="restaurant-desc">Une cuisine marocaine contemporaine dans un cadre élégant et moderne.</p>
+                        <a href="#" class="btn">Voir le menu</a>
                     </div>
                 </div>
             </div>
-        </section>
-    </main>
+            
+            <div style="text-align: center; margin-top: 40px;">
+                <h3 style="margin-bottom: 20px; color: var(--primary-color);">Spécialités Culinaires de Fès</h3>
+                <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 20px;">
+                    <div style="background: var(--white); padding: 15px; border-radius: 8px; box-shadow: var(--shadow); width: 200px;">
+                        <h4 style="color: var(--primary-color); margin-bottom: 10px;">Pastilla</h4>
+                        <p style="color: #666;">Feuilleté sucré-salé au pigeon et aux amandes</p>
+                    </div>
+                    <div style="background: var(--white); padding: 15px; border-radius: 8px; box-shadow: var(--shadow); width: 200px;">
+                        <h4 style="color: var(--primary-color); margin-bottom: 10px;">Méchoui</h4>
+                        <p style="color: #666;">Agneau rôti à la broche, spécialité fassie</p>
+                    </div>
+                    <div style="background: var(--white); padding: 15px; border-radius: 8px; box-shadow: var(--shadow); width: 200px;">
+                        <h4 style="color: var(--primary-color); margin-bottom: 10px;">Tajine Fassi</h4>
+                        <p style="color: #666;">Tajine aux pruneaux, amandes et poulet</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
+    <!-- Section Carte Interactive -->
+    <section id="map" class="map-section">
+        <div class="container">
+            <h2 class="section-title">Carte Interactive de Fès</h2>
+            <div class="map-container">
+                <div id="interactive-map">
+                    <!-- La carte sera chargée dynamiquement via JavaScript -->
+                    <div style="display: flex; align-items: center; justify-content: center; height: 100%; background-color: #f0f0f0; border-radius: 8px;">
+                        <p>Carte interactive en cours de chargement...</p>
+                    </div>
+                </div>
+            </div>
+            <div style="margin-top: 20px; display: flex; flex-wrap: wrap; gap: 10px; justify-content: center;">
+                <button class="btn" data-category="monuments">Monuments</button>
+                <button class="btn" data-category="restaurants">Restaurants</button>
+                <button class="btn" data-category="hotels">Hôtels</button>
+                <button class="btn" data-category="transport">Transports</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section Informations Pratiques -->
+    <section id="practical-info" class="practical-info">
+        <div class="container">
+            <h2 class="section-title">Informations Pratiques</h2>
+            
+            <div class="info-tabs">
+                <button class="tab-btn active" data-tab="accommodation">Hébergement</button>
+                <button class="tab-btn" data-tab="transport">Transports</button>
+                <button class="tab-btn" data-tab="events">Événements</button>
+                <button class="tab-btn" data-tab="emergency">Urgences</button>
+            </div>
+            
+            <div class="tab-content active" id="accommodation-content">
+                <div class="info-grid">
+                    <div class="info-card">
+                        <h3 class="info-title">Riads Traditionnels</h3>
+                        <ul class="info-list">
+                            <li>Riad Fès - Luxury Collection</li>
+                            <li>Palais Faraj Suites & Spa</li>
+                            <li>Riad Laaroussa</li>
+                            <li>Dar Seffarine</li>
+                            <li>Riad Idrissy</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="info-card">
+                        <h3 class="info-title">Hôtels Modernes</h3>
+                        <ul class="info-list">
+                            <li>Sofitel Fès Palais Jamaï</li>
+                            <li>Barceló Fès Medina</li>
+                            <li>Ibis Fès</li>
+                            <li>Hotel Sahrai</li>
+                            <li>Mövenpick Hotel Fès</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="info-card">
+                        <h3 class="info-title">Auberges de Jeunesse</h3>
+                        <ul class="info-list">
+                            <li>Funky Fes</li>
+                            <li>Riad Verus</li>
+                            <li>Dar Dmana</li>
+                            <li>Hotel Cascade</li>
+                            <li>Riad Al Mendili</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tab-content" id="transport-content">
+                <div class="info-grid">
+                    <div class="info-card">
+                        <h3 class="info-title">Aéroport</h3>
+                        <p>L'aéroport de Fès-Saïss (FEZ) est situé à environ 15 km du centre-ville. Des navettes et taxis sont disponibles pour rejoindre la ville.</p>
+                    </div>
+                    
+                    <div class="info-card">
+                        <h3 class="info-title">Train</h3>
+                        <p>La gare de Fès-Ville offre des connexions vers Casablanca, Rabat, Tanger et Marrakech. Le train est un moyen confortable pour voyager au Maroc.</p>
+                    </div>
+                    
+                    <div class="info-card">
+                        <h3 class="info-title">Bus et Taxis</h3>
+                        <p>Le réseau de bus urbain couvre la plupart des quartiers. Les petits taxis (bleus) sont idéaux pour les déplacements en ville.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tab-content" id="events-content">
+                <div class="info-grid">
+                    <div class="info-card">
+                        <h3 class="info-title">Festival des Musiques Sacrées</h3>
+                        <p>Un événement annuel qui rassemble des artistes du monde entier pour célébrer les musiques spirituelles. Généralement en juin.</p>
+                    </div>
+                    
+                    <div class="info-card">
+                        <h3 class="info-title">Festival de la Culture Soufie</h3>
+                        <p>Dédié à la culture soufie avec des concerts, des conférences et des cérémonies. Se tient généralement en avril.</p>
+                    </div>
+                    
+                    <div class="info-card">
+                        <h3 class="info-title">Moussem de Moulay Idriss</h3>
+                        <p>Pèlerinage annuel en l'honneur de Moulay Idriss, fondateur de Fès. Une expérience culturelle et religieuse unique.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tab-content" id="emergency-content">
+                <div class="info-grid">
+                    <div class="info-card">
+                        <h3 class="info-title">Numéros d'Urgence</h3>
+                        <ul class="info-list">
+                            <li>Police: 19</li>
+                            <li>Pompier: 15</li>
+                            <li>Ambulance: 15</li>
+                            <li>Gendarmerie Royale: 177</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="info-card">
+                        <h3 class="info-title">Hôpitaux</h3>
+                        <ul class="info-list">
+                            <li>Hôpital Ghassani: 0535 62 47 31</li>
+                            <li>Clinique Al Farah: 0535 93 90 90</li>
+                            <li>Hôpital Universitaire: 0535 60 05 73</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="info-card">
+                        <h3 class="info-title">Ambassades/Consulats</h3>
+                        <ul class="info-list">
+                            <li>Consulat de France: 0535 62 23 51</li>
+                            <li>Consulat d'Espagne: 0535 62 30 18</li>
+                            <li>Consulat de Belgique: 0535 65 27 89</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
     <footer>
         <div class="container">
-            <p>&copy; 2024 Fès Tourisme. Tous droits réservés.</p>
-            <p class="footer-subtitle">Votre guide pour la CAN 2025 à Fès, Maroc.</p>
-            <div class="social-links">
-                <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-                <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-                <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Fès Tourisme</h3>
+                    <p>Votre guide complet pour découvrir la capitale spirituelle et culturelle du Maroc. Explorez les richesses historiques, culturelles et gastronomiques de Fès.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link">FB</a>
+                        <a href="#" class="social-link">IG</a>
+                        <a href="#" class="social-link">TW</a>
+                        <a href="#" class="social-link">YT</a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Liens Rapides</h3>
+                    <ul class="footer-links">
+                        <li><a href="#discover">À Découvrir</a></li>
+                        <li><a href="#gastronomy">Gastronomie</a></li>
+                        <li><a href="#map">Carte Interactive</a></li>
+                        <li><a href="#practical-info">Infos Pratiques</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Contact</h3>
+                    <ul class="footer-links">
+                        <li>Office du Tourisme de Fès</li>
+                        <li>Avenue Hassan II, Fès</li>
+                        <li>+212 535 62 34 56</li>
+                        <li>info@festourisme.ma</li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Newsletter</h3>
+                    <p>Abonnez-vous à notre newsletter pour recevoir les dernières actualités et offres spéciales.</p>
+                    <form style="margin-top: 15px;">
+                        <input type="email" placeholder="Votre email" style="padding: 10px; width: 100%; border: none; border-radius: 4px; margin-bottom: 10px;">
+                        <button type="submit" class="btn" style="width: 100%;">S'abonner</button>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2023 Fès Tourisme. Tous droits réservés.</p>
             </div>
         </div>
     </footer>
 
-    <script src="script.js"></script>
-<script type="module" src="/index.tsx"></script>
+    <script>
+        // Slider Hero Section
+        class HeroSlider {
+            constructor() {
+                this.slides = document.querySelectorAll('.slide');
+                this.dots = document.querySelectorAll('.dot');
+                this.prevBtn = document.querySelector('.prev');
+                this.nextBtn = document.querySelector('.next');
+                this.currentSlide = 0;
+                this.slideInterval = null;
+                this.slideDuration = 5000; // 5 secondes entre chaque slide
+
+                this.init();
+            }
+
+            init() {
+                // Événements pour les boutons
+                this.prevBtn.addEventListener('click', () => this.prevSlide());
+                this.nextBtn.addEventListener('click', () => this.nextSlide());
+
+                // Événements pour les dots
+                this.dots.forEach((dot, index) => {
+                    dot.addEventListener('click', () => this.goToSlide(index));
+                });
+
+                // Démarrage du slider automatique
+                this.startAutoSlide();
+
+                // Pause au survol
+                const slider = document.querySelector('.hero-slider');
+                slider.addEventListener('mouseenter', () => this.stopAutoSlide());
+                slider.addEventListener('mouseleave', () => this.startAutoSlide());
+            }
+
+            showSlide(index) {
+                // Masquer toutes les slides
+                this.slides.forEach(slide => slide.classList.remove('active'));
+                this.dots.forEach(dot => dot.classList.remove('active'));
+
+                // Afficher la slide courante
+                this.slides[index].classList.add('active');
+                this.dots[index].classList.add('active');
+                this.currentSlide = index;
+            }
+
+            nextSlide() {
+                let nextIndex = (this.currentSlide + 1) % this.slides.length;
+                this.showSlide(nextIndex);
+            }
+
+            prevSlide() {
+                let prevIndex = (this.currentSlide - 1 + this.slides.length) % this.slides.length;
+                this.showSlide(prevIndex);
+            }
+
+            goToSlide(index) {
+                this.showSlide(index);
+            }
+
+            startAutoSlide() {
+                this.stopAutoSlide(); // Arrêter l'intervalle existant
+                this.slideInterval = setInterval(() => this.nextSlide(), this.slideDuration);
+            }
+
+            stopAutoSlide() {
+                if (this.slideInterval) {
+                    clearInterval(this.slideInterval);
+                    this.slideInterval = null;
+                }
+            }
+        }
+
+        // Initialisation du slider
+        document.addEventListener('DOMContentLoaded', () => {
+            new HeroSlider();
+        });
+
+        // Menu mobile toggle
+        document.querySelector('.mobile-toggle').addEventListener('click', function() {
+            document.querySelector('.nav-menu').classList.toggle('active');
+        });
+
+        // Système d'onglets pour les informations pratiques
+        const tabBtns = document.querySelectorAll('.tab-btn');
+        const tabContents = document.querySelectorAll('.tab-content');
+
+        tabBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Retirer la classe active de tous les boutons et contenus
+                tabBtns.forEach(b => b.classList.remove('active'));
+                tabContents.forEach(c => c.classList.remove('active'));
+                
+                // Ajouter la classe active au bouton cliqué
+                btn.classList.add('active');
+                
+                // Afficher le contenu correspondant
+                const tabId = btn.getAttribute('data-tab') + '-content';
+                document.getElementById(tabId).classList.add('active');
+            });
+        });
+
+        // Système de changement de langue
+        const languageOptions = document.querySelectorAll('.language-option');
+        const languageBtn = document.querySelector('.language-btn');
+
+        languageOptions.forEach(option => {
+            option.addEventListener('click', (e) => {
+                e.preventDefault();
+                const lang = option.getAttribute('data-lang');
+                
+                // Changer le texte du bouton de langue
+                if (lang === 'fr') {
+                    languageBtn.innerHTML = 'Français ▼';
+                } else if (lang === 'en') {
+                    languageBtn.innerHTML = 'English ▼';
+                } else if (lang === 'ar') {
+                    languageBtn.innerHTML = 'العربية ▼';
+                }
+                
+                // Ici, nous pourrions charger les traductions correspondantes
+                // Pour l'instant, nous allons simplement afficher un message
+                alert(`La langue a été changée en ${lang.toUpperCase()}. Dans une implémentation réelle, le contenu serait traduit.`);
+            });
+        });
+
+        // Simulation de carte interactive
+        const mapButtons = document.querySelectorAll('[data-category]');
+        
+        mapButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const category = button.getAttribute('data-category');
+                alert(`Affichage des ${category} sur la carte. Dans une implémentation réelle, cela filtrerait les marqueurs sur la carte.`);
+            });
+        });
+
+        // Fermer le menu mobile en cliquant sur un lien
+        const navLinks = document.querySelectorAll('.nav-link');
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                document.querySelector('.nav-menu').classList.remove('active');
+            });
+        });
+
+        // Animation au défilement
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.style.boxShadow = '0 4px 10px rgba(0, 0, 0, 0.1)';
+            } else {
+                header.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.1)';
+            }
+        });
+    </script>
 </body>
 </html>
