@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fès - Capitale Spirituelle et Culturelle du Maroc</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <style>
         /* Variables CSS pour une cohérence du design */
         :root {
@@ -63,6 +64,10 @@
         .btn:hover {
             background-color: var(--secondary-color);
             transform: translateY(-2px);
+        }
+
+        .btn.active {
+            background-color: var(--secondary-color);
         }
 
         .section-title {
@@ -429,11 +434,46 @@
             border-radius: 8px;
             overflow: hidden;
             box-shadow: var(--shadow);
+            position: relative;
         }
 
         #interactive-map {
             width: 100%;
             height: 100%;
+        }
+
+        .map-controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .map-legend {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: var(--white);
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: var(--shadow);
+            z-index: 1000;
+            max-width: 200px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 5px;
+            font-size: 0.9rem;
+        }
+
+        .legend-color {
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            margin-right: 8px;
         }
 
         /* Section Informations Pratiques */
@@ -588,6 +628,41 @@
             border-top: 1px solid rgba(255, 255, 255, 0.1);
         }
 
+        /* Popup personnalisé */
+        .custom-popup {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 250px;
+        }
+
+        .popup-title {
+            color: var(--primary-color);
+            font-weight: bold;
+            margin-bottom: 5px;
+            font-size: 1.1rem;
+        }
+
+        .popup-category {
+            color: var(--secondary-color);
+            font-size: 0.9rem;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .popup-description {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+            line-height: 1.4;
+        }
+
+        .popup-link {
+            color: var(--primary-color);
+            text-decoration: underline;
+            font-size: 0.9rem;
+            display: inline-block;
+            margin-top: 5px;
+        }
+
         /* Responsive Design */
         @media (max-width: 992px) {
             .hero-title {
@@ -622,6 +697,14 @@
             .language-selector {
                 margin-left: 0;
                 margin-top: 20px;
+            }
+
+            .map-legend {
+                position: relative;
+                top: auto;
+                right: auto;
+                margin: 10px auto;
+                max-width: 100%;
             }
         }
 
@@ -665,6 +748,11 @@
             .slider-controls {
                 flex-direction: column;
                 gap: 15px;
+            }
+
+            .map-controls {
+                flex-direction: column;
+                align-items: center;
             }
         }
     </style>
@@ -866,14 +954,29 @@
         <div class="container">
             <h2 class="section-title">Carte Interactive de Fès</h2>
             <div class="map-container">
-                <div id="interactive-map">
-                    <!-- La carte sera chargée dynamiquement via JavaScript -->
-                    <div style="display: flex; align-items: center; justify-content: center; height: 100%; background-color: #f0f0f0; border-radius: 8px;">
-                        <p>Carte interactive en cours de chargement...</p>
+                <div id="interactive-map"></div>
+                <div class="map-legend">
+                    <h4 style="margin-bottom: 10px; color: var(--primary-color);">Légende</h4>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background-color: #e74c3c;"></div>
+                        <span>Monuments</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background-color: #3498db;"></div>
+                        <span>Restaurants</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background-color: #2ecc71;"></div>
+                        <span>Hôtels</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background-color: #f39c12;"></div>
+                        <span>Transports</span>
                     </div>
                 </div>
             </div>
-            <div style="margin-top: 20px; display: flex; flex-wrap: wrap; gap: 10px; justify-content: center;">
+            <div class="map-controls">
+                <button class="btn active" data-category="all">Tout afficher</button>
                 <button class="btn" data-category="monuments">Monuments</button>
                 <button class="btn" data-category="restaurants">Restaurants</button>
                 <button class="btn" data-category="hotels">Hôtels</button>
@@ -1054,6 +1157,7 @@
         </div>
     </footer>
 
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script>
         // Slider Hero Section
         class HeroSlider {
@@ -1064,36 +1168,30 @@
                 this.nextBtn = document.querySelector('.next');
                 this.currentSlide = 0;
                 this.slideInterval = null;
-                this.slideDuration = 5000; // 5 secondes entre chaque slide
+                this.slideDuration = 5000;
 
                 this.init();
             }
 
             init() {
-                // Événements pour les boutons
                 this.prevBtn.addEventListener('click', () => this.prevSlide());
                 this.nextBtn.addEventListener('click', () => this.nextSlide());
 
-                // Événements pour les dots
                 this.dots.forEach((dot, index) => {
                     dot.addEventListener('click', () => this.goToSlide(index));
                 });
 
-                // Démarrage du slider automatique
                 this.startAutoSlide();
 
-                // Pause au survol
                 const slider = document.querySelector('.hero-slider');
                 slider.addEventListener('mouseenter', () => this.stopAutoSlide());
                 slider.addEventListener('mouseleave', () => this.startAutoSlide());
             }
 
             showSlide(index) {
-                // Masquer toutes les slides
                 this.slides.forEach(slide => slide.classList.remove('active'));
                 this.dots.forEach(dot => dot.classList.remove('active'));
 
-                // Afficher la slide courante
                 this.slides[index].classList.add('active');
                 this.dots[index].classList.add('active');
                 this.currentSlide = index;
@@ -1114,7 +1212,7 @@
             }
 
             startAutoSlide() {
-                this.stopAutoSlide(); // Arrêter l'intervalle existant
+                this.stopAutoSlide();
                 this.slideInterval = setInterval(() => this.nextSlide(), this.slideDuration);
             }
 
@@ -1126,9 +1224,242 @@
             }
         }
 
-        // Initialisation du slider
+        // Carte Interactive
+        class InteractiveMap {
+            constructor() {
+                this.map = null;
+                this.markers = {};
+                this.activeCategory = 'all';
+                this.init();
+            }
+
+            init() {
+                // Initialiser la carte centrée sur Fès
+                this.map = L.map('interactive-map').setView([34.0181, -5.0078], 13);
+
+                // Ajouter le fond de carte
+                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    attribution: '© OpenStreetMap contributors'
+                }).addTo(this.map);
+
+                // Données des points d'intérêt
+                this.pointsOfInterest = {
+                    monuments: [
+                        {
+                            name: "Médina de Fès",
+                            lat: 34.0638,
+                            lng: -4.9779,
+                            description: "La médina historique classée au patrimoine mondial de l'UNESCO",
+                            category: "monuments"
+                        },
+                        {
+                            name: "Tanneries Chouara",
+                            lat: 34.0658,
+                            lng: -4.9736,
+                            description: "Tanneries traditionnelles datant du Moyen Âge",
+                            category: "monuments"
+                        },
+                        {
+                            name: "Université Al Quaraouiyine",
+                            lat: 34.0645,
+                            lng: -4.9739,
+                            description: "Plus ancienne université du monde encore en activité",
+                            category: "monuments"
+                        },
+                        {
+                            name: "Palais Royal",
+                            lat: 34.0522,
+                            lng: -4.9844,
+                            description: "Palais royal avec ses magnifiques portes en laiton",
+                            category: "monuments"
+                        },
+                        {
+                            name: "Jardin Jnan Sbil",
+                            lat: 34.0589,
+                            lng: -4.9802,
+                            description: "Jardin historique avec fontaines et espèces végétales",
+                            category: "monuments"
+                        },
+                        {
+                            name: "Musée Dar Batha",
+                            lat: 34.0611,
+                            lng: -4.9758,
+                            description: "Musée d'art et traditions dans un ancien palais",
+                            category: "monuments"
+                        }
+                    ],
+                    restaurants: [
+                        {
+                            name: "Dar Roumana",
+                            lat: 34.0641,
+                            lng: -4.9752,
+                            description: "Cuisine marocaine raffinée dans un riad traditionnel",
+                            category: "restaurants"
+                        },
+                        {
+                            name: "Café Clock",
+                            lat: 34.0632,
+                            lng: -4.9768,
+                            description: "Lieu branché célèbre pour son burger de chameau",
+                            category: "restaurants"
+                        },
+                        {
+                            name: "Numéro 7",
+                            lat: 34.0412,
+                            lng: -4.9991,
+                            description: "Cuisine marocaine contemporaine",
+                            category: "restaurants"
+                        }
+                    ],
+                    hotels: [
+                        {
+                            name: "Riad Fès - Luxury Collection",
+                            lat: 34.0628,
+                            lng: -4.9761,
+                            description: "Hôtel de luxe dans un riad restauré",
+                            category: "hotels"
+                        },
+                        {
+                            name: "Sofitel Fès Palais Jamaï",
+                            lat: 34.0605,
+                            lng: -4.9823,
+                            description: "Hôtel 5 étoiles avec vue sur la médina",
+                            category: "hotels"
+                        },
+                        {
+                            name: "Hotel Sahrai",
+                            lat: 34.0431,
+                            lng: -4.9978,
+                            description: "Hôtel design avec spa et piscine",
+                            category: "hotels"
+                        }
+                    ],
+                    transport: [
+                        {
+                            name: "Aéroport Fès-Saïss",
+                            lat: 33.9273,
+                            lng: -4.9779,
+                            description: "Aéroport international de Fès",
+                            category: "transport"
+                        },
+                        {
+                            name: "Gare de Fès-Ville",
+                            lat: 34.0331,
+                            lng: -5.0053,
+                            description: "Gare ferroviaire principale",
+                            category: "transport"
+                        },
+                        {
+                            name: "Gare Routière CTM",
+                            lat: 34.0467,
+                            lng: -4.9989,
+                            description: "Gare routière principale",
+                            category: "transport"
+                        }
+                    ]
+                };
+
+                // Couleurs pour chaque catégorie
+                this.categoryColors = {
+                    monuments: '#e74c3c',
+                    restaurants: '#3498db',
+                    hotels: '#2ecc71',
+                    transport: '#f39c12'
+                };
+
+                // Ajouter tous les marqueurs
+                this.addAllMarkers();
+
+                // Gestion des boutons de filtrage
+                this.setupFilterButtons();
+            }
+
+            addAllMarkers() {
+                for (const category in this.pointsOfInterest) {
+                    this.markers[category] = [];
+                    
+                    this.pointsOfInterest[category].forEach(point => {
+                        // Créer un marqueur personnalisé
+                        const marker = L.circleMarker([point.lat, point.lng], {
+                            color: this.categoryColors[category],
+                            fillColor: this.categoryColors[category],
+                            fillOpacity: 0.7,
+                            radius: 8,
+                            weight: 2
+                        }).addTo(this.map);
+
+                        // Popup personnalisé
+                        const popupContent = `
+                            <div class="custom-popup">
+                                <div class="popup-title">${point.name}</div>
+                                <div class="popup-category">${this.getCategoryLabel(point.category)}</div>
+                                <div class="popup-description">${point.description}</div>
+                                <a href="#" class="popup-link" onclick="event.preventDefault(); alert('Détails de ${point.name}')">Voir les détails</a>
+                            </div>
+                        `;
+
+                        marker.bindPopup(popupContent);
+                        this.markers[category].push(marker);
+                    });
+                }
+            }
+
+            getCategoryLabel(category) {
+                const labels = {
+                    monuments: 'Monument',
+                    restaurants: 'Restaurant',
+                    hotels: 'Hôtel',
+                    transport: 'Transport'
+                };
+                return labels[category] || category;
+            }
+
+            setupFilterButtons() {
+                const buttons = document.querySelectorAll('.map-controls .btn');
+                
+                buttons.forEach(button => {
+                    button.addEventListener('click', (e) => {
+                        const category = e.target.getAttribute('data-category');
+                        
+                        // Mettre à jour les boutons actifs
+                        buttons.forEach(btn => btn.classList.remove('active'));
+                        e.target.classList.add('active');
+                        
+                        // Filtrer les marqueurs
+                        this.filterMarkers(category);
+                    });
+                });
+            }
+
+            filterMarkers(category) {
+                this.activeCategory = category;
+
+                // Masquer tous les marqueurs d'abord
+                for (const cat in this.markers) {
+                    this.markers[cat].forEach(marker => {
+                        this.map.removeLayer(marker);
+                    });
+                }
+
+                // Afficher les marqueurs de la catégorie sélectionnée
+                if (category === 'all') {
+                    for (const cat in this.markers) {
+                        this.markers[cat].forEach(marker => {
+                            marker.addTo(this.map);
+                        });
+                    }
+                } else {
+                    this.markers[category].forEach(marker => {
+                        marker.addTo(this.map);
+                    });
+                }
+            }
+        }
+
+        // Initialisation des composants
         document.addEventListener('DOMContentLoaded', () => {
             new HeroSlider();
+            new InteractiveMap();
         });
 
         // Menu mobile toggle
@@ -1142,14 +1473,10 @@
 
         tabBtns.forEach(btn => {
             btn.addEventListener('click', () => {
-                // Retirer la classe active de tous les boutons et contenus
                 tabBtns.forEach(b => b.classList.remove('active'));
                 tabContents.forEach(c => c.classList.remove('active'));
                 
-                // Ajouter la classe active au bouton cliqué
                 btn.classList.add('active');
-                
-                // Afficher le contenu correspondant
                 const tabId = btn.getAttribute('data-tab') + '-content';
                 document.getElementById(tabId).classList.add('active');
             });
@@ -1164,7 +1491,6 @@
                 e.preventDefault();
                 const lang = option.getAttribute('data-lang');
                 
-                // Changer le texte du bouton de langue
                 if (lang === 'fr') {
                     languageBtn.innerHTML = 'Français ▼';
                 } else if (lang === 'en') {
@@ -1173,19 +1499,7 @@
                     languageBtn.innerHTML = 'العربية ▼';
                 }
                 
-                // Ici, nous pourrions charger les traductions correspondantes
-                // Pour l'instant, nous allons simplement afficher un message
                 alert(`La langue a été changée en ${lang.toUpperCase()}. Dans une implémentation réelle, le contenu serait traduit.`);
-            });
-        });
-
-        // Simulation de carte interactive
-        const mapButtons = document.querySelectorAll('[data-category]');
-        
-        mapButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                const category = button.getAttribute('data-category');
-                alert(`Affichage des ${category} sur la carte. Dans une implémentation réelle, cela filtrerait les marqueurs sur la carte.`);
             });
         });
 
